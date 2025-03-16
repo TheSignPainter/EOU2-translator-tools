@@ -35,8 +35,8 @@ def parse_single_entry(line: str):
     line = line.replace('{f804}{0600}', '[[颜色6起始]]')
 
     # 删除{f801}（换行）和{f802}（下一页）
+    line = line.replace('{f801}{f802}', '[[下一页]]')
     line = line.replace('{f801}', '')
-    line = line.replace('{f802}', '[[下一页]]')
     line = line.replace('{f85c}', '[[对话结束]]')
 
     
@@ -47,7 +47,7 @@ def parse_single_entry_revert(line: str):
 
     # 放回{f801}（换行）和{f802}（下一页）
     line = line.replace('[[换行]]', '{f801}')
-    line = line.replace('[[下一页]]', '{f802}')
+    line = line.replace('[[下一页]]', '{f801}{f802}')
     line = line.replace('[[对话结束]]', '{f85c}')
 
     # 放回立绘控制：{f855}{x}{x}语音：{f813}{x}{x}{x}{x}
