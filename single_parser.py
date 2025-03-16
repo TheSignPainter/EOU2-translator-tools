@@ -51,8 +51,8 @@ def parse_single_entry_revert(line: str):
     line = line.replace('[[对话结束]]', '{f85c}')
 
     # 放回立绘控制：{f855}{x}{x}语音：{f813}{x}{x}{x}{x}
-    line = re.sub('\[\[voice: ([0-9a-f]{4}) ([0-9a-f]{4}) ([0-9a-f]{4}) ([0-9a-f]{4})\]\]', repl='{f813}{\g<1>\g<2>\g<3>\g<4>}', string=line)
-    line = re.sub('\[\[portrait: ([0-9a-f]{4}) ([0-9a-f]{4})\]\]', repl='{f855}{\g<1>\g<2>}', string=line)
+    line = re.sub('\[\[voice: ([0-9a-f]{4}) ([0-9a-f]{4}) ([0-9a-f]{4}) ([0-9a-f]{4})\]\]', repl='{f813}{\g<1>}{\g<2>}{\g<3>}{\g<4>}', string=line)
+    line = re.sub('\[\[portrait: ([0-9a-f]{4}) ([0-9a-f]{4})\]\]', repl='{f855}{\g<1>}{\g<2>}', string=line)
 
     # {f859}：说话人信息
     for (patt, name) in person_name:
