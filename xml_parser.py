@@ -45,7 +45,7 @@ def process_file_revert(file_path):
                 parsed_text = parse_single_entry_revert(subchild.text)
                 chk_result = check_reverted_entry(parsed_text)
                 if chk_result:
-                    logger.warning(f"ID={child.attrib['id']}的行校验失败: {chk_result}")
+                    logger.warning(f"{fname} ID={child.attrib['id']}的行校验失败: {chk_result}")
                 subchild.text = parsed_text
 
     # 查找特定元素

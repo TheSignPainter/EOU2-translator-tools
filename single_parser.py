@@ -71,8 +71,8 @@ def parse_single_entry_revert(line: str):
     line = line.replace('[[颜色2起始]]', '{f804}{0200}')
     line = line.replace('[[颜色6起始]]', '{f804}{0600}')
 
-    # TODO: 如果出现太长的行，则warning。
-
-    # TODO：如果出现未换回的控制字符，则warning
+    # 如果line不是以{f801}或{f802}结束，则添加{f801}
+    if not line.endswith('{f801}') and not line.endswith('{f802}'):
+        line += '{f801}'
 
     return line
