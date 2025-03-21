@@ -24,8 +24,8 @@ def process_file(file_path):
                     logger.warning(f"ID={child.attrib['id']}的行校验失败: {chk_result}")
                 subchild.text = parsed_text
     # 查找特定元素
-    for elem in tree_root.iter('item'):  # 查找所有名为'item'的元素
-        print(f"找到item元素: {elem.tag}, 属性: {elem.attrib}, 文本内容: {elem.text}")
+    # for elem in tree_root.iter('item'):  # 查找所有名为'item'的元素
+    #     print(f"找到item元素: {elem.tag}, 属性: {elem.attrib}, 文本内容: {elem.text}")
 
     # source/target
     os.makedirs('./parsed', exist_ok=True)
