@@ -17,13 +17,13 @@ def parse_single_entry(line: str):
 
     # 首先：保留立绘控制{f855}{x}{x} 语音：{f813}{x}{x}{x}{x}
     # 结束的标志是{f85c}
-    line = re.sub('{f813}{([0-9a-f]{4})}{([0-9a-f]{4})}{([0-9a-f]{4})}{([0-9a-f]{4})}', repl='[[voice: \g<1> \g<2> \g<3> \g<4>]]', string=line)
+    line = re.sub('{f813}{([0-9a-f]{4})}{([0-9a-f]{4})}{([0-9a-f]{4})}{([0-9a-f]{4})}', repl='[[voice: \g<1> \g<2> \g<3> \g<4>]]\n', string=line)
 
-    line = re.sub('{f855}{([0-9a-f]{4})}{([0-9a-f]{4})}', repl='[[portrait: \g<1> \g<2>]]', string=line)
+    line = re.sub('{f855}{([0-9a-f]{4})}{([0-9a-f]{4})}', repl='[[portrait: \g<1> \g<2>]]\n', string=line)
 
     # {f859}：说话人信息
     for (patt, name) in person_name:
-        line = re.sub(patt, repl='[[speaker: '+name+']]', string=line)
+        line = re.sub(patt, repl='[[speaker: '+name+']]\n', string=line)
 
     # 文字颜色
     line = line.replace('{f804}{0000}', '[[文字白起始]]')
@@ -35,7 +35,7 @@ def parse_single_entry(line: str):
     line = line.replace('{f804}{0600}', '[[颜色6起始]]')
 
     # 删除{f801}（换行）和{f802}（下一页）
-    line = line.replace('{f801}{f802}', '[[下一页]]')
+    line = line.replace('{f801}{f802}', '[[下一页]]\n')
     line = line.replace('{f801}', '')
     line = line.replace('{f85c}', '[[对话结束]]')
 
@@ -45,6 +45,8 @@ def parse_single_entry(line: str):
 
 def parse_single_entry_revert(line: str):
 
+    # 删除展示用的\n
+    line = line.replace('\n', '')
     # 放回{f801}（换行）和{f802}（下一页）
     line = line.replace('[[换行]]', '{f801}')
     line = line.replace('[[下一页]]', '{f801}{f802}')
