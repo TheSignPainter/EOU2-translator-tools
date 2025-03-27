@@ -25,6 +25,9 @@ def parse_single_entry(line: str):
     for (patt, name) in person_name:
         line = re.sub(patt, repl='[[speaker: '+name+']]\n', string=line)
 
+    # （经典模式）队员名字
+    line = re.sub('{f843}{([0-9a-f]{4})}', repl='[[member: \g<1>]]', string=line)
+
     # 文字颜色
     line = line.replace('{f804}{0000}', '[[文字白起始]]')
     line = line.replace('{f804}{0500}', '[[文字黄起始]]')
@@ -33,6 +36,7 @@ def parse_single_entry(line: str):
     line = line.replace('{f804}{0900}', '[[颜色9起始]]')
     line = line.replace('{f804}{0200}', '[[颜色2起始]]')
     line = line.replace('{f804}{0600}', '[[颜色6起始]]')
+    
 
     # 删除{f801}（换行）和{f802}（下一页）
     line = line.replace('{f801}{f802}', '[[下一页]]\n')
@@ -62,6 +66,8 @@ def parse_single_entry_revert(line: str):
             line = re.sub('\[\[speaker: 其他人物-([0-9a-f]{4})\]\]', repl='{f859}{\g<1>}', string=line)
         else:
             line = re.sub(f'\[\[speaker: {name}\]\]', repl=patt.replace('\\', ''), string=line)
+    # （经典模式）队员名字
+    line = re.sub('\[\[member: ([0-9a-f]{4})\]\]', repl='{f843}{\g<1>}', string=line)
 
     # 文字颜色
 
